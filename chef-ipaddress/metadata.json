@@ -1,0 +1,42 @@
+{
+  "name": "chef-ipaddress",
+  "description": "Sets the IP Address in Chef Node",
+  "long_description": "# DESCRIPTION\n\nChef's cookbook to change an IP address on a node server and set it to static\nbased on attributes defined in a JSON file. This has been tested and verified\nworking on Ubuntu 12.04, and Centos 7. On Ubuntu, this recipe will edit\n`/etc/network/interfaces`, and `/etc/sysconfig/network-scripts/ifcfg-<name>` on\nCentos.\n\nDirect Link to the project on Github: http://github.com/harryyeh/chef-ipaddress\n\n# REQUIREMENTS\n\n## Platform:\n\nThe cookbook aims to be platform independent, but it's tested on Ubuntu 12.04, and CentOS 7.\n\n# USAGE:\n\nAdd your cookbook to the chef server:\n\n```shell\nknife cookbook upload chef-ipaddress\n```\n\nYou will need a data bag named \"servers\".\nThe following is a sample data bag item for Ubuntu:\n\n```json\n{\n    \"id\": \"server1\",\n    \"interfaces\": {\n        \"eth0\": {\n            \"address\": \"192.168.1.2\",\n            \"netmask\": \"255.255.255.0\",\n            \"gateway\": \"192.168.1.1\",\n            \"dns-nameservers\": \"192.168.1.1 192.168.1.2\",\n            \"dns-search\": \"test-domain.com\"\n        },\n        \"eth1\": {\n            \"address\": \"192.168.2.2\",\n            \"netmask\": \"255.255.255.0\"\n        }\n    }\n}\n```\n\nFor a CentOS server, you might want something like this:\n\n```json\n{\n    \"id\": \"server1\",\n    \"interfaces\": {\n        \"eth0\": {\n            \"device\": \"eth0\",\n            \"bootproto\": \"none\",\n            \"onboot\": \"yes\",\n            \"ipaddr\": \"192.168.1.2\",\n            \"netmask\": \"255.255.255.0\",\n            \"gateway\": \"192.168.1.1\",\n            \"dns1\": \"192.168.1.1\",\n            \"dns2\": \"192.168.1.3\"\n        },\n        \"eth1\": {\n            \"device\": \"eth1\",\n            \"bootproto\": \"none\",\n            \"onboot\": \"yes\",\n            \"ipaddr\": \"192.168.2.3\",\n            \"netmask\": \"255.255.255.0\",\n            \"gateway\": \"192.168.2.1\",\n            \"dns1\": \"192.168.2.1\",\n            \"dns2\": \"192.168.2.2\"\n        }\n    }\n}\n```\n\nAssume you have a file called `server1.json`. Use the knife command to add this\ndata bag to your chef server before you add this to the run list. The JSON file\nname must match the name of the nodename in chef or this will not work. Or,\nset the attribute `set_hostname` below when you add it to the run list.\n\n```shell\nknife data bag from file servers server1.json\n```\n\n## Notes\n\nBy default, the cookbook will _not_ restart the networking service.\nIf you want the cookbook to restart your network service,\nset `default['chef_ipaddress']['restart_networking']` to `true`.\n\nThis recipe will not attempt to do any sort of error checking for you.\nIt will only copy what you have listed in your data bag to the relevant config files.\n\n# ATTRIBUTES\n\n`set_hostname` - this parameter only needs to be set if you are doing a bootstrap\n\n`restart_networking` - (default false) controls whether or not networking will be restarted\n\n# LICENSE\n\nchef-ipaddress - Changing the ip address on a linux system using chef.\n\n|                      |                                          |\n|:---------------------|:-----------------------------------------|\n| **Author:**          | Harry Yeh (<devops@cometcomputing.com>)\n| **Author:**          | Tim Terhorst (<mynamewastaken@gmail.com>)\n| **Copyright:**       | Copyright (c) 2008-2012 Comet Computing.\n| **License:**         | Apache License, Version 2.0\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "maintainer": "Comet Computing",
+  "maintainer_email": "devops@cometcomputing.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": "= 12.4.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "1.2.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}

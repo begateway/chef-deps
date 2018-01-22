@@ -1,0 +1,12 @@
+auto lo
+iface lo inet loopback
+
+<% @interfaces.each do |interface, attributes| %>
+auto <%= interface %>
+iface <%= interface %> inet static
+<% attributes.each do |directive, value| %>
+  <%= directive %> <%= value %>
+<% end %>
+
+
+<% end %>
