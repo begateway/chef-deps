@@ -1,0 +1,46 @@
+---
+driver:
+  name: vagrant
+  customize:
+    memory: 1024
+    cpus: 2
+
+platforms:
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[apt::default]
+      - recipe[curl::default]
+    attributes:
+      grafana:
+        webserver_listen: ''
+  - name: debian-7.4
+    run_list:
+      - recipe[apt::default]
+      - recipe[curl::default]
+  - name: centos-6.9
+    attributes:
+      grafana:
+        webserver_listen: ''
+  - name: centos-7.2
+    attributes:
+      grafana:
+        webserver_listen: ''
+
+suites:
+  - name: default
+    run_list:
+      - recipe[grafana::default]
+    attributes:
+      grafana:
+        ini:
+          server:
+            http_addr: '127.0.0.1'
+  - name: package
+    run_list:
+      - recipe[grafana::default]
+    attributes:
+      grafana:
+        install_type: package
+        ini:
+          server:
+            http_port: 3015
