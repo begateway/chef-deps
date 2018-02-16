@@ -27,7 +27,8 @@ when 'debian'
     uri 'https://packages.erlang-solutions.com/debian/'
     distribution node['erlang']['esl']['lsb_codename']
     components ['contrib']
-    key 'https://packages.erlang-solutions.com/debian/erlang_solutions.asc'
+    #key was grabbed from 'https://packages.erlang-solutions.com/debian/erlang_solutions.asc'
+    key 'erlang_solutions.asc'
     action :add
   end
 
