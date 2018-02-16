@@ -24,11 +24,10 @@ when 'debian'
   package 'apt-transport-https'
 
   apt_repository 'erlang_solutions_repo' do
-    uri 'http://packages.erlang-solutions.com/debian/'
+    uri 'https://packages.erlang-solutions.com/debian/'
     distribution node['erlang']['esl']['lsb_codename']
     components ['contrib']
-    #key was grabbed from 'https://packages.erlang-solutions.com/debian/erlang_solutions.asc'
-    key 'erlang_solutions.asc'
+    key 'https://packages.erlang-solutions.com/debian/erlang_solutions.asc'
     action :add
   end
 
@@ -37,7 +36,7 @@ when 'debian'
   end
 when 'rhel'
   if node['platform_version'].to_i <= 5
-    Chef::Log.fatal('Erlang Solutions pacakge repositories are not available for EL5')
+    Chef::Log.fatal('Erlang Solutions package repositories are not available for EL5')
     raise
   end
 
